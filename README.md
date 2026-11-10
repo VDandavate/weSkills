@@ -4,10 +4,10 @@
 
 ### From *“What if…”* to *“Done, verified, and archived.”*
 
-**Three portable agent skills for turning software ideas into clear specifications, shipping them safely, and preserving the evidence.**
+**Six portable agent skills for specifying, building, verifying, testing, improving and safely delivering software.**
 
 [![Agent Skills](https://img.shields.io/badge/format-Agent%20Skills-4658D8?style=flat-square)](https://agentskills.io/specification)
-![Skills](https://img.shields.io/badge/skills-3-227C65?style=flat-square)
+![Skills](https://img.shields.io/badge/skills-6-227C65?style=flat-square)
 [![MIT License](https://img.shields.io/badge/license-MIT-2D7D46?style=flat-square)](LICENSE)
 ![Workflow](https://img.shields.io/badge/workflow-specify%20%E2%86%92%20build%20%E2%86%92%20archive-3C6E9B?style=flat-square)
 ![Human approval](https://img.shields.io/badge/approval-human%20in%20control-7A5EA8?style=flat-square)
@@ -65,13 +65,16 @@ Each skill follows the [Agent Skills specification](https://agentskills.io/speci
 
 ### 2. Install or point your agent at the skills
 
-Where your agent supports local skill directories, copy or symlink the **three skill folders** to its configured skills location. For example, on macOS/Linux, a skill-capable agent configured to scan `~/.agents/skills/` can use:
+Where your agent supports local skill directories, copy or symlink the **six skill folders** to its configured skills location. For example, on macOS/Linux, a skill-capable agent configured to scan `~/.agents/skills/` can use:
 
 ```bash
 mkdir -p ~/.agents/skills
 ln -s "$(pwd)/skills/grillideatospecs" ~/.agents/skills/grillideatospecs
 ln -s "$(pwd)/skills/buildtospecs" ~/.agents/skills/buildtospecs
 ln -s "$(pwd)/skills/archivethespecs" ~/.agents/skills/archivethespecs
+ln -s "$(pwd)/skills/improvecode" ~/.agents/skills/improvecode
+ln -s "$(pwd)/skills/testthoroughly" ~/.agents/skills/testthoroughly
+ln -s "$(pwd)/skills/qualityorchestrator" ~/.agents/skills/qualityorchestrator
 ```
 
 Run these commands **from the cloned weSkills directory**. For Windows, or systems where symlinks are inconvenient, copy the folders instead.
@@ -101,7 +104,7 @@ Assess readiness and preview any proposed integration and archive operations.
 Do not merge, push or archive without my explicit approval.
 ```
 
-## 🧰 The three skills
+## 🧰 The original three skills
 
 <table>
 <tr>
@@ -295,3 +298,29 @@ Copyright © 2026 Vaibhav Dandavate. This license covers the content maintained 
 [↑ Back to top](#-weskills)
 
 </div>
+
+## 🔍 Quality assessment and remediation
+
+Three additional skills complement the original specification workflow:
+
+| Skill | Purpose |
+| --- | --- |
+| **[qualityorchestrator](skills/qualityorchestrator/SKILL.md)** | Coordinate code review, testing, approved remediation, and independent verification |
+| **[improvecode](skills/improvecode/SKILL.md)** | Review and improve correctness, security, performance, and maintainability |
+| **[testthoroughly](skills/testthoroughly/SKILL.md)** | Perform comprehensive functional, integration, system, E2E, negative, and resilience testing |
+
+### Quality workflow
+
+1. Inspect the repository and establish a baseline.
+2. Identify confirmed defects, risks, and verification gaps.
+3. Propose a prioritized, outcome-driven remediation plan.
+4. Obtain approval before changing code.
+5. Implement dependency-aware batches in isolated branches/worktrees.
+6. Independently verify the changes and report actual results.
+7. Commit and push only as authorized. Leave merging or discarding to the user.
+
+Independent batches may run in parallel. Dependent or overlapping batches run sequentially.
+
+A static inspection or dry run is not an executed test suite. Unrun checks must be reported as **Unverified**.
+
+The original **grillideatospecs → buildtospecs → archivethespecs** workflow remains unchanged.

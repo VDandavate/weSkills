@@ -51,3 +51,12 @@ Apply these defaults across projects. Follow applicable repository instructions 
 - Write plainly and concisely. Use short sentences, clear headings, and copy-ready output. Avoid em dashes and inflated language.
 - State what changed, what was verified, what was not verified, and any blockers or remaining work. Do not claim success prematurely.
 - End implementation reports with a short numbered next-action list identifying specific files, changes, and reasons, when actions remain. Do not invent actions merely to satisfy the format.
+
+## Quality workflow safeguards
+
+- Quality skill invocation authorizes assessment only. Obtain explicit approval before remediation changes.
+- Use a dedicated quality branch/worktree for approved changes to target applications.
+- Independent remediation batches may run concurrently only with exclusive ownership and non-overlapping files. Dependent batches run sequentially.
+- Distinguish confirmed defects, suspected risks, and unverified checks. Report exact test commands and results.
+- Never weaken assertions, bypass checks or hooks, conceal failures, or allow agents to self-approve.
+- Stage only explicit paths. Commit under applicable authorization. Never push, merge, delete branches, or run destructive tests without required permission.
