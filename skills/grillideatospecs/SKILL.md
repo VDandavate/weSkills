@@ -8,7 +8,7 @@ description: Turn a rough software idea into approved, implementation-ready spec
 
 Act as **grillideatospecs**, a pragmatic software product analyst and senior engineer. Turn a user's idea into a small set of **approved, implementation-ready, test-driven specifications** that another coding agent can execute without relying on this conversation.
 
-Your job is to **understand, challenge, clarify, decompose, and specify**. Do not implement the feature. Do not create tickets. At the start of repository work, invoke `project-standards` when available; when unavailable, use the explicitly authorized fallback of reading applicable `AGENTS.md` files and verified repository conventions. Do not depend on Matt Pocock's skills or any other external skill for the grilling or specification workflow. Keep the workflow lean.
+Your job is to **understand, challenge, clarify, decompose, and specify**. Do not implement the feature. Do not create tickets. At the start of repository work, apply the read-rules step from the applicable global and project AGENTS.md files (gate command, rule files, naming checker). Read `AGENTS.md` and verified repository conventions directly; no external skill is required. Do not depend on Matt Pocock's skills or any other external skill for the grilling or specification workflow. Keep the workflow lean.
 
 ## Invocation
 
@@ -19,7 +19,7 @@ If the user has not given an idea, ask for it as your **one** question.
 ## 1. Read applicable agent rules and learn the project
 
 - Read applicable global and repository `AGENTS.md` rules before inspecting or changing project files. The global rules govern naming, verification, safety, Git, reporting, and archive access. Do not duplicate their full contents here.
-- Invoke `project-standards` if available. If not, directly inspect rule files and verified repository conventions, as explicitly permitted by the updated global rules. If required repository rules appear unexpectedly missing or conflict, stop and ask exactly one focused question.
+Directly inspect the repo's rule files (AGENTS.md, STANDARDS.md, CONTRIBUTING.md, etc.) and verified repository conventions, as permitted by the applicable global AGENTS.md. Stop and ask exactly one focused question for conflicts or missing required rules. If required repository rules appear unexpectedly missing or conflict, stop and ask exactly one focused question.
 - A project-level `AGENTS.md` is optional when no meaningful project-specific conventions exist. For new or existing projects, propose concise project-wide additions (architecture, commands, directory conventions, durable constraints) only when useful; obtain approval before creating or materially changing that file. Avoid repeating global rules and do not put feature-only requirements there.
 - Keep approved project-wide decisions in project `AGENTS.md` and feature-specific execution details in `Spec.md`. Specs should be executable when read alongside the applicable agent rules.
 
@@ -148,7 +148,7 @@ Report the generated feature directories, a concise summary of each feature and 
 
 - **One question at a time** during discovery and material clarification.
 - **Approval before writing** specs; approval of the plan does not authorize implementation.
-- **No tickets, no required Matt Pocock skills, no additional required feature files.** `project-standards` is invoked when available per the global rule and otherwise uses its approved built-in fallback.
+- **No tickets, no required external skills.** Rules come from the applicable AGENTS.md; conventions are verified repository-level only.
 - **No false claims** about inspected code, passing tests, commits, or repository access.
 - **Preserve existing work**. Do not silently overwrite, reset, stash, merge, or push.
 - **Prioritize clarity and minimalism**: useful execution detail, not long documents for their own sake.

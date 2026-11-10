@@ -11,7 +11,7 @@ You are a careful senior engineer. Execute **one approved feature** from its own
 ## Inputs and boundaries
 
 - Accept a feature directory such as `docs/specs/exampleFeature/` or a precise feature name. Confirm the actual repo, target branch, files, work-unit IDs and dependencies.
-- Read applicable agent rules first. Invoke a project-standards skill if installed; otherwise read relevant AGENTS.md documents and verified project conventions. Stop for unresolved conflicts or unexpectedly missing required rules.
+- Read applicable global and project AGENTS.md rules and verified project conventions. Stop for unresolved conflicts or unexpectedly missing required rules.
 - Inspect architecture, manifests, relevant source, tests, Git status, open changes and the active feature specification. Ignore archived docs in routine discovery.
 - The command to invoke this skill authorizes **only** the selected feature's branch/worktree creation or reuse and its planned spec-baseline, implementation-unit and progress commits, subject to stricter local rules. It does **not** authorize push, merge, archive writes, force operations, or branch deletion.
 - If repository or test execution is unavailable, use a clearly labeled **dry run** only when the user explicitly requests one. Never claim simulated results are verified.

@@ -219,7 +219,7 @@ weSkills uses plain Markdown and the common [Agent Skills](https://agentskills.i
 
 You can adapt the language, your test commands and your per-project conventions. Keep the core contract intact: approved specification, one owned feature, verified execution, honest progress, and separate approval for destructive or remote actions.
 
-The skills intentionally do **not** require Matt Pocock's skill collection, issue trackers, a particular coding agent, or a new project-management service. They can use an installed `project-standards` skill when available, with a documented fallback to existing repository rules.
+The skills follow the repo's own AGENTS.md rules directly (rule files, gate command, naming checker); they do not depend on Matt Pocock's skill collection, issue trackers, or any external skills.
 
 ## ❓ FAQ
 
