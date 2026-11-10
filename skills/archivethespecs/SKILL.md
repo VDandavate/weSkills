@@ -58,6 +58,15 @@ Only after applicable approvals:
 7. Push only with independently documented authorization and a fresh preview of remote, target ref, commits and changed paths. Do not claim a push succeeded without an actual result.
 8. Never modify archive files afterward to "tidy" them, retroactively change progress, or add missing metadata. If evidence was incomplete, the archive should not have happened.
 
+## Parallel and mixed integration; optional cleanup
+
+- Read the approved project execution contract when present and identify the feature's exclusive writer, branch, worktree, dependencies, integration target and single owner of shared integration files. Sequential repositories need no extra worktree machinery. Do not treat branch completion as proof that upstream dependencies are already integrated.
+- Before an approved merge, verify the exact dependency commits in the target and check for concurrent changes to the target ref. If another feature or integrator has advanced the target, stop, re-review the plan and rerun integrated regression gates as needed. Do not independently resolve cross-feature API or shared-file conflicts by rewriting another active feature.
+- Complete the established independent readiness review, preview, separate merge/archive/push approvals, and immutable archival before considering cleanup. For mixed workflows, retain any worktree still used by a serial agent or another tool; no automatic cleanup follows from a successful archive.
+- **Optional worktree cleanup is a new, separate approval-gated action.** Preview the exact non-primary worktree path, branch, merged commits, local/remote divergence and proposed operation. Verify the path belongs to this repo and feature, it is not the primary checkout, contains no staged, unstaged or untracked work, has no active agent, and has no unintegrated/unpushed work requiring preservation. Stop when any fact is unverified.
+- Ask for explicit approval **naming that exact worktree path** before running normal `git worktree remove <path>`; never use `--force`, `git clean`, a filesystem `rm -rf`, or implicit cleanup. Recheck safety conditions immediately before removal and report the actual result. Separately preview and request explicit approval for deleting the exact feature branch; use only safe non-forced deletion after proving it is merged and unused. Never delete another feature branch, an unrelated tool's worktree, or the primary repository checkout.
+- If integration, archive, push or cleanup partly succeeds, report each verified step and stop. On restart inspect the actual refs, archive destination and worktree list and resume only the remaining separately approved actions, without replaying merges or deletions.
+
 ## Already archived, missing files or partial failures
 
 - If the feature is already archived, verify the existing record read-only and report. Do not rearchive or rewrite.

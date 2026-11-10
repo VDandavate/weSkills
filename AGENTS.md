@@ -37,6 +37,12 @@ Apply these defaults across projects. Follow applicable repository instructions 
 - Invoking `archivethespecs` authorizes inspection only. Obtain explicit approval after showing the intended target, remote, commits, files, and actions before merging, archiving, or pushing. Pushes to `main` always require explicit approval.
 - Never force-push, rewrite shared history without approval, bypass hooks with `--no-verify`, or delete branches without a separate explicit request.
 
+## Concurrent feature execution
+- Support sequential, parallel, and mixed execution. Sequential use must not require multiple worktrees; concurrent feature writers must use separate branches and worktrees, with one writer per feature and `Progress.md`.
+- Discover actual repository worktrees, branches, owners and shared baseline before starting. Reuse the assigned checkout when it matches; never silently change the current tool workspace, move another agent, or create a conflicting worktree. Stop if branch ownership, an occupied path, or uncommitted work is unclear.
+- Honor feature prerequisites and reviewed shared interfaces. Independent work may proceed concurrently; dependent integration waits for the required upstream merge. Do not invent interface contracts or let concurrent agents independently edit shared integration files.
+- Approval to plan or build is not approval to merge, push, archive, delete a branch, or remove a worktree. Cleanup requires separate approval of each exact worktree/branch, after verifying it is no longer used, fully integrated, clean (including untracked files), and not the primary checkout. No force removal.
+
 ## Completed specifications
 - `docs/archiveDocs/` holds completed specifications as read-only history, not active implementation instructions. Exclude it from routine agent discovery and modifications; any search exclusion is not a security boundary.
 - After verification and explicit approval, `archivethespecs` may move a newly completed feature directory from `docs/specs/` to an unused location in `docs/archiveDocs/`. Never overwrite or modify an existing archive entry. The new entry becomes read-only after archival.

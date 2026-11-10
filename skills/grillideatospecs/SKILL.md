@@ -54,6 +54,16 @@ Do not impose a fixed question count. Stop automatically once a separate impleme
 - Within each feature, plan for **sequential work-unit execution by one feature-owning agent**, not parallel agents within the same feature. Design work units as **cohesive, outcome-based vertical slices**. Each yields a meaningful independently verifiable result, can be implemented and committed separately after prerequisites, and has clear ownership. No arbitrary line-count or time limit.
 - Avoid tickets, external trackers, extra project-management files, and boilerplate deliverables.
 
+### Delivery modes and multi-agent planning
+
+- When the idea contains multiple independently useful features, determine the intended delivery mode: `sequential`, `parallel`, or `mixed`. Use verified project context and the user's established preference; ask exactly **one** clarification question only if the choice materially affects boundaries or implementation. A single feature requires no multi-agent machinery.
+- Preserve sequential as the low-overhead default when no concurrent execution is requested. A single agent can work through features one at a time without mandatory extra worktrees. `parallel` and `mixed` must not relax per-feature sequential work units or Git approval safeguards.
+- For parallel/mixed mode, show a feature dependency graph, reviewed shared contracts, exclusive owners of shared paths, proposed integration order, and a clearly labeled proposed assignment of feature branch/worktree per active writer. Distinguish independent code work from integration blocked by unfinished dependencies. Avoid assigning machine-specific paths without verified context or user approval.
+- Include the execution mode and applicable coordination-contract reference in each feature's dependency/concurrency section and initial progress metadata; do not alter the detailed work-unit schema, statuses, or approval-before-writing gate above.
+- If a shared project execution contract is warranted, propose a single approved document alongside active specs (for example `docs/specs/ParallelExecution.md`) instead of duplicating rules. Only create or update it after plan approval, and only within the authorized documentation scope. Preserve existing approved specs and progress evidence; require reviewed amendments instead of overwriting them.
+- The generated contract should cover: one writer per feature branch/worktree/ledger; actual integration target and committed shared baseline; paths and tool ownership; dependency/interface handshake; shared-file conflict routing; setup/reuse preflight; resume after interruptions; integration tests; and approval-gated archive and worktree/branch cleanup. Worktree creation and repository commit/push permissions remain governed by downstream skills and global rules.
+- Validate both paths: one agent delivering all features serially and multiple tools delivering eligible features concurrently. For mixed mode ensure a serial agent never concurrently owns two active feature branches or a shared ledger.
+
 ## 4. Present a concise plan and obtain approval
 
 Once grilling is complete, present **without creating feature spec files yet**:

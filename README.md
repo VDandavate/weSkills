@@ -215,6 +215,22 @@ weSkills uses plain Markdown and the common [Agent Skills](https://agentskills.i
 
 **Portability has boundaries:** agent products differ in filesystem access, Git support, approval UX, skill scanning and background execution. If the required tools are unavailable, the skills must report that limitation, not simulate a successful build or archive.
 
+## 🔀 Sequential, parallel, and mixed feature delivery
+
+The three skills support **sequential** delivery by one agent, **parallel** delivery by separate tools, or a **mixed** approach where one tool handles features serially while other tools operate concurrently. The functional-specification and approval rules remain unchanged.
+
+- **Sequential:** use one agent and the existing checkout when safe. A separate worktree is optional, not required; still give each feature its own branch and progress ledger where the project requires it.
+- **Parallel:** assign exactly one writer, feature branch, Git worktree and `Progress.md` to each active feature. The worktree must contain a reviewed, committed specification baseline. A tool must actually open its assigned directory before editing.
+- **Mixed:** an agent may hand off a clean checkout to its next feature while other tools work in separate worktrees. Never reuse a worktree concurrently or allow two writers to update the same ledger.
+
+For multi-feature projects, `grillideatospecs` should document the approved delivery mode, dependency graph, interface owners, conflict-prone shared paths and integration order. The per-project coordination document can live alongside active specifications, for example `docs/specs/ParallelExecution.md`, and should be referenced from applicable `Spec.md` files. Local machine paths and agent assignments belong to the project, **not** the reusable skills.
+
+`buildtospecs` checks the selected feature's assigned branch/worktree, reconciles actual Git state and waits at unresolved dependency or interface gates. New worktree setup is optional, verified and limited to already authorized skill operations. The agent may need you to open the new directory manually in your chosen tool.
+
+`archivethespecs` independently verifies completion, integrates only with the approved dependency order, and offers optional **separately authorized** cleanup of an unused, clean, non-primary worktree and feature branch. It must never force-remove a dirty worktree or clean up another active tool's checkout. Merge, push, archive and cleanup remain distinct approvals.
+
+**Portable execution rule:** never assume that the host supports Git worktrees, automatic workspace switching or parallel agent control. If unavailable, ask for a supported checkout or execute safely in sequential mode after approval; do not claim setup or checks ran when they did not.
+
 ## 🧩 Customize without breaking the workflow
 
 You can adapt the language, your test commands and your per-project conventions. Keep the core contract intact: approved specification, one owned feature, verified execution, honest progress, and separate approval for destructive or remote actions.
