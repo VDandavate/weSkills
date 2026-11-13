@@ -84,3 +84,5 @@ End with a numbered action list naming the affected files and the reason for eac
 ## Example invocation
 
 `Use archivethespecs on docs/specs/volunteerScheduling/. Assess readiness and present the proposed merge and archive operations for approval before making any changes.`
+### Identifier preservation
+Retain exact approved work-unit IDs throughout integration, progress evidence and archival. Never renumber or rename historical IDs. Verify that dependencies and commit evidence still identify the declared units.
