@@ -92,7 +92,7 @@ Use stable camelCase feature directory names, following global naming rules. Do 
 
 Use these concise sections; omit irrelevant subsections but never omit information required to build the feature:
 
-1. **Identity and readiness** — feature name/slug, state `Ready for Build`, purpose, and proposed target branch (verify actual target rather than assuming `main`).
+1. **Identity and readiness** — feature name/slug, initial state `Draft pending review and final approval`, purpose, and proposed target branch (verify actual target rather than assuming `main`). Set `Ready for Build` only after review outcome `Ready for Approval` and explicit final user approval. Existing approved specs using `Ready for Build` remain valid; do not rewrite them solely for this change.
 2. **Problem and outcomes** — user goal, value, target audience, and observable success.
 3. **Scope and boundaries** — in scope; meaningful out-of-scope and deferred items.
 4. **Existing system and decisions** — verified architecture, relevant file paths and integration points, chosen technologies, constraints, relevant references, and settled decisions. For greenfield work, define the minimal approved architecture and setup constraints. Reference code rather than copying large excerpts.
@@ -142,7 +142,18 @@ Check all generated files against the approved plan:
 
 If validation finds a material gap, ask the next single clarifying question rather than presenting the files as ready.
 
-## 7. Final response
+## 7. Independent specification review and final approval
+
+After generating and structurally validating the **entire** approved-plan specification package, **automatically invoke** `reviewthespecs` (read `skills/reviewthespecs/SKILL.md` or its installed equivalent and perform its independent review procedure). Review all features, shared contracts, original requirements and decisions, repository facts, work-unit ownership, dependency graph, integrated outcomes, acceptance, and conditional visual fidelity. This is a separate critical pass, not a repeat of section 6 or a claim of separate-agent independence.
+
+- Keep the original user requirements and all approved decisions available to the reviewer. Do not substitute a generator-authored summary for the original record.
+- Within the already authorized specification-writing scope, correct nonmaterial findings and re-invoke the reviewer for an actual re-review. Do not silently dilute acceptance, drop requirements, change approved decisions, or alter existing work-unit IDs.
+- Resolve every Critical and Major finding before asking for final specification approval. If a fix requires a new product or scope decision, ask the user exactly **one** question at a time, update the approved plan as necessary, then regenerate only affected specs and re-review the entire package.
+- If review cannot run, say so and mark it **Blocked**; never claim an independent review occurred. A review with unresolved Critical/Major findings is **Changes Required**, not ready.
+- Save the package-level `ReviewReport.md` and `Traceability.md` alongside active specifications (for example under `docs/specs/`) when authorized; include review sources, findings, outcomes, requirement-to-work-unit-to-acceptance evidence and reverse coverage. Do not add these files to every feature.
+- Only after `Ready for Approval` request **final user specification approval**. Record approval and mark approved specs `Ready for Build` only after that approval. Plan approval in section 4 authorizes specification drafting, not implementation. Neither review success nor final spec approval authorizes implementation, commits, merges, pushes or archival.
+
+## 8. Final response
 
 Report the generated feature directories, a concise summary of each feature and its work units, dependency-aware suggested build order, and any constraints needing attention. Report the exact verification performed, checks not run, naming-rule exceptions (if any), and whether project-level `AGENTS.md` was proposed or updated. End the report with a numbered action list naming each affected file, the change, and its reason. State that the specs are **generated but not committed**. Suggest invoking `buildtospecs` with **one** feature path, e.g. `docs/specs/<featureName>/`.
 
@@ -158,7 +169,7 @@ Report the generated feature directories, a concise summary of each feature and 
 
 - **One question at a time** during discovery and material clarification.
 - **Approval before writing** specs; approval of the plan does not authorize implementation.
-- **No tickets, no required external skills.** Rules come from the applicable AGENTS.md; conventions are verified repository-level only.
+- **No tickets or external frameworks.** Use the bundled `reviewthespecs` as a required internal review step. If unavailable, stop and report the missing review rather than claiming success.
 - **No false claims** about inspected code, passing tests, commits, or repository access.
 - **Preserve existing work**. Do not silently overwrite, reset, stash, merge, or push.
 - **Prioritize clarity and minimalism**: useful execution detail, not long documents for their own sake.

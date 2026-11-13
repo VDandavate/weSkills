@@ -4,10 +4,10 @@
 
 ### From *“What if…”* to *“Done, verified, and archived.”*
 
-**Six portable agent skills for specifying, building, verifying, testing, improving and safely delivering software.**
+**Seven portable agent skills for specifying, independently reviewing, building, verifying, testing, improving and safely delivering software.**
 
 [![Agent Skills](https://img.shields.io/badge/format-Agent%20Skills-4658D8?style=flat-square)](https://agentskills.io/specification)
-![Skills](https://img.shields.io/badge/skills-6-227C65?style=flat-square)
+![Skills](https://img.shields.io/badge/skills-7-227C65?style=flat-square)
 [![MIT License](https://img.shields.io/badge/license-MIT-2D7D46?style=flat-square)](LICENSE)
 ![Workflow](https://img.shields.io/badge/workflow-specify%20%E2%86%92%20build%20%E2%86%92%20archive-3C6E9B?style=flat-square)
 ![Human approval](https://img.shields.io/badge/approval-human%20in%20control-7A5EA8?style=flat-square)
@@ -28,7 +28,7 @@ Coding agents are great at writing code. They are less useful when the idea is s
 | --- | --- |
 | Agents guess what a feature should do | **grillideatospecs** asks one high-impact question at a time |
 | An enormous, ambiguous implementation task | Small, cohesive specs with explicit dependencies and testable work units |
-| “Looks done” replaces evidence | **buildtospecs** checks tests, Git and progress before calling a unit Complete |
+| “Looks done” replaces evidence | **reviewthespecs** challenges specification completeness; **buildtospecs** checks tests, Git and progress before calling a unit Complete |
 | Stale documents drift away from shipped code | **archivethespecs** verifies acceptance and archives the completed record |
 | Pushes, merges and cleanups surprise you | Explicit previews and approval gates keep people in control |
 
@@ -42,7 +42,10 @@ flowchart LR
     G --> P{"Approve plan?"}
     P -->|Revise| G
     P -->|Yes| S["📋 Spec.md + Progress.md"]
-    S --> B["🧪 buildtospecs"]
+    S --> R["🔍 reviewthespecs"]
+    R --> V{"Ready for approval?"}
+    V -->|Corrections and re-review| R
+    V -->|Yes, user approves| B["🧪 buildtospecs"]
     B --> Q{"Tests and acceptance?"}
     Q -->|Blocked| B
     Q -->|Verified| A["📦 archivethespecs"]
@@ -51,7 +54,7 @@ flowchart LR
     H -->|Approved| D["🗄️ docs/archiveDocs/"]
 ```
 
-**One idea → approved requirements → sequential verified work → controlled archival.**
+**One idea → plan approval → specs → independent review → final spec approval → verified build → controlled archival.**
 
 ## 🚀 Quick start
 
@@ -65,7 +68,8 @@ Each skill follows the [Agent Skills specification](https://agentskills.io/speci
 
 ### 2. Install or point your agent at the skills
 
-Where your agent supports local skill directories, copy or symlink the **six skill folders** to its configured skills location. For example, on macOS/Linux, a skill-capable agent configured to scan `~/.agents/skills/` can use:
+Where your agent supports local skill directories, copy or symlink the **seven skill folders** to its configured skills location. For example, on macOS/Linux, a skill-capable agent configured to scan `~/.agents/skills/` can use:
+ln -s "$(pwd)/skills/reviewthespecs" ~/.agents/skills/reviewthespecs
 
 ```bash
 mkdir -p ~/.agents/skills
@@ -89,7 +93,7 @@ Use grillideatospecs. I want a simple volunteer shift scheduler for a community 
 Ask exactly one clarification question at a time.
 ```
 
-After reviewing and approving the proposed feature plan:
+After reviewing and approving the proposed feature plan, `grillideatospecs` generates the specs, invokes `reviewthespecs`, resolves material findings, and asks for separate final specification approval. Then:
 
 ```text
 Use buildtospecs for docs/specs/volunteerScheduling/.
@@ -100,6 +104,14 @@ When every work unit is actually complete and accepted:
 
 ```text
 Use archivethespecs for docs/specs/volunteerScheduling/.
+## 🔎 Independent specification review
+
+**[reviewthespecs](skills/reviewthespecs/SKILL.md)** is the seventh skill. It challenges requirements coverage, complete outcomes, ownership, integration, acceptance evidence, repository constraints, and visual fidelity **only for visual projects**. It produces a package-level `ReviewReport.md` and `Traceability.md` when writing is authorized. Outcomes are `Ready for Approval`, `Changes Required`, or `Blocked`; review never grants implementation permission.
+
+**Automatic:** `grillideatospecs` now runs `reviewthespecs` after generating and validating the complete spec package, corrects findings within authorized scope, re-reviews, and then requests final user specification approval. Its earlier plan approval remains a separate drafting gate.
+
+**Direct:** `Use reviewthespecs on docs/specs/volunteerScheduling/ against the original approved requirements. Report findings; do not edit files.` Existing specs remain usable without changing work-unit IDs.
+
 Assess readiness and preview any proposed integration and archive operations.
 Do not merge, push or archive without my explicit approval.
 ```
