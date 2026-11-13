@@ -85,3 +85,5 @@ Report the feature, branch, current unit status, exact commands and outcomes, al
 ## Example invocation
 
 `Use buildtospecs for docs/specs/volunteerScheduling/. Start with the first eligible unit, preserve existing work and run the required repository gates.`
+### Identifier compatibility
+Treat work-unit IDs as stable opaque identifiers, not `wu`-prefixed sequence numbers. New IDs use descriptive camelCase; older approved identifiers remain valid. Resolve dependencies against declared IDs, reject missing or duplicate references, and preserve exact IDs in Progress.md, commits and recovery.
