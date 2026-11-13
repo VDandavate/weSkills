@@ -12,7 +12,7 @@
 ![Workflow](https://img.shields.io/badge/workflow-specify%20%E2%86%92%20build%20%E2%86%92%20archive-3C6E9B?style=flat-square)
 ![Human approval](https://img.shields.io/badge/approval-human%20in%20control-7A5EA8?style=flat-square)
 
-**[Quick start](#-quick-start) · [Explore the skills](#-the-three-skills) · [Safety model](#-safety-is-a-feature) · [Examples](#-walkthrough) · [FAQ](#-faq)**
+**[Quick start](#-quick-start) · [Core skills](#-core-delivery-skills) · [Independent review](#-independent-specification-review) · [Safety model](#-safety-is-a-feature) · [Examples](#-walkthrough) · [FAQ](#-faq)**
 
 </div>
 
@@ -69,11 +69,11 @@ Each skill follows the [Agent Skills specification](https://agentskills.io/speci
 ### 2. Install or point your agent at the skills
 
 Where your agent supports local skill directories, copy or symlink the **seven skill folders** to its configured skills location. For example, on macOS/Linux, a skill-capable agent configured to scan `~/.agents/skills/` can use:
-ln -s "$(pwd)/skills/reviewthespecs" ~/.agents/skills/reviewthespecs
 
 ```bash
 mkdir -p ~/.agents/skills
 ln -s "$(pwd)/skills/grillideatospecs" ~/.agents/skills/grillideatospecs
+ln -s "$(pwd)/skills/reviewthespecs" ~/.agents/skills/reviewthespecs
 ln -s "$(pwd)/skills/buildtospecs" ~/.agents/skills/buildtospecs
 ln -s "$(pwd)/skills/archivethespecs" ~/.agents/skills/archivethespecs
 ln -s "$(pwd)/skills/improvecode" ~/.agents/skills/improvecode
@@ -104,19 +104,21 @@ When every work unit is actually complete and accepted:
 
 ```text
 Use archivethespecs for docs/specs/volunteerScheduling/.
-## 🔎 Independent specification review
-
-**[reviewthespecs](skills/reviewthespecs/SKILL.md)** is the seventh skill. It challenges requirements coverage, complete outcomes, ownership, integration, acceptance evidence, repository constraints, and visual fidelity **only for visual projects**. It produces a package-level `ReviewReport.md` and `Traceability.md` when writing is authorized. Outcomes are `Ready for Approval`, `Changes Required`, or `Blocked`; review never grants implementation permission.
-
-**Automatic:** `grillideatospecs` now runs `reviewthespecs` after generating and validating the complete spec package, corrects findings within authorized scope, re-reviews, and then requests final user specification approval. Its earlier plan approval remains a separate drafting gate.
-
-**Direct:** `Use reviewthespecs on docs/specs/volunteerScheduling/ against the original approved requirements. Report findings; do not edit files.` Existing specs remain usable without changing work-unit IDs.
-
-Assess readiness and preview any proposed integration and archive operations.
+Assess readiness and preview integration and archive operations.
 Do not merge, push or archive without my explicit approval.
 ```
 
-## 🧰 The original three skills
+## 🔎 Independent specification review
+
+**[reviewthespecs](skills/reviewthespecs/SKILL.md)** challenges requirement coverage, outcome completeness, integration, ownership and verification. When authorized, it writes package-level `ReviewReport.md` and `Traceability.md`. It reports `Ready for Approval`, `Changes Required` or `Blocked`, never implementation authorization.
+
+**Automatic:** `grillideatospecs` invokes review after drafting and requests final specification approval after addressing authorized findings.
+
+**Direct:** `Use reviewthespecs on docs/specs/volunteerScheduling/ against the original requirements. Do not edit files.`
+
+New work-unit IDs use meaningful camelCase names. Preserve older approved IDs.
+
+## 🧰 Core delivery skills
 
 <table>
 <tr>
@@ -335,4 +337,4 @@ Independent batches may run in parallel. Dependent or overlapping batches run se
 
 A static inspection or dry run is not an executed test suite. Unrun checks must be reported as **Unverified**.
 
-The original **grillideatospecs → buildtospecs → archivethespecs** workflow remains unchanged.
+The **grillideatospecs → reviewthespecs → buildtospecs → archivethespecs** lifecycle works without an external coordinator.
