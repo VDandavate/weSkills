@@ -40,3 +40,5 @@ Reports must include: scope and branch; findings with evidence tier; approved ve
 ## Invocation
 
 `Use qualityorchestrator to assess this repository. Run safe baseline checks, produce an outcome-driven proposal, and wait for my approval before changing code. Use a dedicated quality branch for approved remediation.`
+### Delegation and execution ownership
+When called by another skill, return findings and test evidence to the caller rather than independently starting remediation or Git delivery. One declared execution owner controls task state, commits and integration. `improvecode` and `testthoroughly` remain assessment capabilities, not competing writers. No external runtime is required for standalone use.
