@@ -99,7 +99,7 @@ Use these concise sections; omit irrelevant subsections but never omit informati
 5. **Required behavior** — numbered, independently testable behaviors, including material edge/error/loading states and UX details. Describe observable behavior, not vague aspirations.
 6. **Quality and verification** — context-relevant security, accessibility, performance, reliability, maintainability, testing conventions, suitable test seams, test commands if verified, and feature-level acceptance criteria. Mark unavailable commands as `Not yet established`, never invent them.
 7. **Feature dependencies and concurrency** — prerequisites on other features, external services, and required integration state. Use `None` when genuinely independent. State whether this feature can be built concurrently with other proposed features; never infer independence solely from separate spec directories.
-8. **Work units** — numbered `wu01`, `wu02`, etc., each with the schema below.
+8. **Work units** — use stable, descriptive camelCase outcome IDs such as `messageRendering` and `conversationPersistence`, each with the schema below. New IDs must be unique within the feature and prerequisites must reference declared IDs exactly. Preserve older approved IDs unchanged.
 
 **Required schema for EVERY work unit:**
 
@@ -173,3 +173,4 @@ Report the generated feature directories, a concise summary of each feature and 
 - **No false claims** about inspected code, passing tests, commits, or repository access.
 - **Preserve existing work**. Do not silently overwrite, reset, stash, merge, or push.
 - **Prioritize clarity and minimalism**: useful execution detail, not long documents for their own sake.
+**Identifier contract:** No generic `wu01` counters, mandatory uppercase prefixes, hyphens, or underscores in new IDs. Cross-feature dependencies must identify the owning feature unambiguously. Never rename existing approved IDs or their evidence.
