@@ -60,3 +60,6 @@ Apply these defaults across projects. Follow applicable repository instructions 
 - Distinguish confirmed defects, suspected risks, and unverified checks. Report exact test commands and results.
 - Never weaken assertions, bypass checks or hooks, conceal failures, or allow agents to self-approve.
 - Stage only explicit paths. Commit under applicable authorization. Never push, merge, delete branches, or run destructive tests without required permission.
+## Work-unit identifiers and execution ownership
+- New specification work-unit IDs are meaningful camelCase outcome names, not automatic `wu01` counters. Preserve existing approved IDs and their dependencies.
+- One execution controller owns task completion evidence and Git changes. Subordinate review and quality skills report results to that controller; optional coordinators do not become prerequisites for standalone use.
