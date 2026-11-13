@@ -68,3 +68,5 @@ For a directly invoked review, never assume corrections are authorized. For gril
 `Use reviewthespecs to independently review docs/specs/volunteerScheduling/ against the original approved requirements. Do not modify files.`
 
 `Use reviewthespecs on all active feature specs and shared contracts. Identify missing integrated outcomes and unsafe parallel dependencies before I approve implementation.`
+### Identifier validation
+Check work-unit ID uniqueness and consistent references across specifications, progress, dependencies, review artifacts and shared contracts. New IDs should be descriptive camelCase without forced prefixes. Preserve legacy approved IDs and flag undefined or ambiguous references rather than renaming them.
